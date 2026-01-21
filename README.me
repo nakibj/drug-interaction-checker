@@ -1,0 +1,194 @@
+# Drug Interaction Checker
+
+A full-stack web application that helps users identify potential drug interactions by querying the FDA's OpenFDA drug label database. The application searches through over 100,000+ FDA-approved medications and analyzes drug labels for interaction warnings.
+
+![Drug Interaction Checker](https://img.shields.io/badge/Python-3.8+-blue.svg)
+![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+
+## 🎯 Project Overview
+
+This application was built to demonstrate full-stack development skills and domain knowledge in healthcare technology. It combines software engineering with pharmaceutical data to create a practical tool for medication safety research.
+
+## ✨ Features
+
+- **Dual Search Capability**: Search drugs by brand name (e.g., "Lipitor") or generic name (e.g., "atorvastatin")
+- **Intelligent Interaction Detection**: Analyzes FDA drug labels to identify mentions of drug interactions
+- **Comprehensive Data Display**: Shows full FDA drug interaction warnings and contraindications
+- **User-Friendly Interface**: Clean, responsive design with color-coded warnings
+- **Error Handling**: Validates drug names and provides helpful feedback for invalid entries
+- **Real-Time Results**: Instant querying of FDA's public API with no registration required
+
+## 🛠️ Tech Stack
+
+**Backend:**
+- Python 3.8+
+- Flask (Web Framework)
+- Requests (HTTP Library)
+
+**Frontend:**
+- HTML5
+- CSS3
+- Jinja2 Templates
+
+**API:**
+- [OpenFDA Drug Label API](https://open.fda.gov/apis/drug/label/)
+
+## 📋 Prerequisites
+
+- Python 3.8 or higher
+- pip (Python package manager)
+- Virtual environment (recommended)
+
+## 🚀 Installation & Setup
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/nakibj/drug-interaction-checker.git
+cd drug-interaction-checker
+```
+
+2. **Create and activate virtual environment:**
+
+**Windows:**
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+**Mac/Linux:**
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
+3. **Install dependencies:**
+```bash
+pip install -r requirements.txt
+```
+
+4. **Run the application:**
+```bash
+python app.py
+```
+
+5. **Open your browser:**
+```
+http://127.0.0.1:5000
+```
+
+## 💻 Usage
+
+1. Navigate to the homepage
+2. Enter the name of the first drug (Drug A)
+3. Enter the name of the second drug (Drug B)
+4. Click "Check Interactions"
+5. View the results:
+   - **Green box**: No direct interaction found in labels
+   - **Yellow box**: Potential interaction detected
+   - Expandable sections show full FDA interaction data for each drug
+
+## 🏗️ Project Structure
+```
+drug-interaction-checker/
+│
+├── app.py                      # Flask application and routes
+├── drug_checker.py             # Core logic for drug search and interaction detection
+├── requirements.txt            # Python dependencies
+├── .gitignore                 # Git ignore rules
+│
+├── templates/
+│   ├── index.html             # Homepage with drug input form
+│   └── results.html           # Results page displaying interactions
+│
+└── static/
+    └── style.css              # Styling for the application
+```
+
+## 🔍 How It Works
+
+### Backend Logic
+
+1. **Drug Search Function** (`search_drug()`):
+   - Queries OpenFDA API by brand name
+   - Falls back to generic name search if brand name not found
+   - Extracts `drug_interactions` field from FDA drug labels
+   - Returns structured data with drug name and interaction text
+
+2. **Interaction Detection** (`check_interactions()`):
+   - Searches for Drug B's name in Drug A's interaction warnings
+   - Searches for Drug A's name in Drug B's interaction warnings
+   - Uses case-insensitive string matching on base drug names
+   - Returns comprehensive results with bidirectional checking
+
+### API Integration
+
+The application uses the [OpenFDA Drug Label API](https://open.fda.gov/apis/drug/label/) which provides:
+- Drug label information for FDA-approved medications
+- Drug interaction warnings from official prescribing information
+- Generic and brand name mappings
+- No API key required for basic usage
+
+### Example API Query
+```
+https://api.fda.gov/drug/label.json?search=openfda.brand_name:"Lipitor"&limit=1
+```
+
+## 📊 Sample Results
+
+**Example: Lipitor + Warfarin**
+
+✅ **Interaction Detected**
+- Lipitor's label mentions warfarin in drug interaction section
+- Warfarin's label mentions atorvastatin (Lipitor's generic name)
+- Both drugs display full FDA interaction warnings
+
+## 🎓 Key Learnings
+
+This project demonstrates:
+
+- **API Integration**: Working with RESTful APIs and handling JSON responses
+- **Data Processing**: Parsing unstructured medical text from drug labels
+- **Full-Stack Development**: Backend logic with Flask + frontend with HTML/CSS
+- **Error Handling**: Validating user input and managing API failures
+- **Domain Knowledge**: Understanding pharmaceutical data structures and medical terminology
+
+## 🔮 Future Enhancements
+
+- [ ] Support for checking 3+ drugs simultaneously
+- [ ] Drug class interaction detection (e.g., "statins" vs specific drug names)
+- [ ] Integration with RxNorm API for better drug name matching
+- [ ] Export results as PDF report
+- [ ] Mobile-responsive design improvements
+- [ ] Caching frequently searched drugs to reduce API calls
+- [ ] User accounts to save interaction history
+
+## ⚠️ Disclaimer
+
+**This tool is for educational and informational purposes only.** It should not be used as a substitute for professional medical advice, diagnosis, or treatment. Always consult your physician, pharmacist, or other qualified healthcare provider with any questions regarding medications and potential drug interactions.
+
+The data is sourced from the FDA's public drug label database, which may not reflect the most current information. Drug interaction data is complex and context-dependent.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+**Nakib Jalal**
+- GitHub: [@nakibj](https://github.com/nakibj)
+- LinkedIn: [linkedin.com/in/nakibj](https://linkedin.com/in/nakibj)
+
+## 🙏 Acknowledgments
+
+- [OpenFDA](https://open.fda.gov/) for providing free access to drug label data
+- Flask documentation and community
+- Rutgers University Computer Science program
+
+## 📞 Contact
+
+For questions, suggestions, or collaboration opportunities, feel free to reach out via GitHub or LinkedIn.
+
+---
+
+**Built with 💊 for healthcare technology and medication safety**
