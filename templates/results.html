@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaction Results</title>
+    <link rel="stylesheet" href="static/style.css"
+</head>
+<body>
+     <h1>Drug Interaction Results</h1>
+    
+    {% if result.interaction_found %}
+        <div class="warning">
+            <h2>⚠️ WARNING: Potential Interaction Detected</h2>
+            <p>The drug labels mention potential interactions between these medications.</p>
+        </div>
+    {% else %}
+        <div class="safe">
+            <h2>ℹ️ No Direct Interaction Found</h2>
+            <p>The drug labels do not directly mention each other. However, always consult your doctor or pharmacist.</p>
+        </div>
+    {% endif %}
+    
+    <div class="drug-section">
+        <h2>{{ result.drug_a.name }}</h2>
+        {% if result.drug_a.mentions_drug_b %}
+            <p><strong>✓ This drug's label mentions {{ result.drug_b.name }}</strong></p>
+        {% else %}
+            <p>This drug's label does not mention {{ result.drug_b.name }}</p>
+        {% endif %}
+        
+        <details>
+            <summary>View Full Interaction Information</summary>
+            <div class="full-text">{{ result.drug_a.interactions }}</div>
+        </details>
+    </div>
+    
+    <div class="drug-section">
+        <h2>{{ result.drug_b.name }}</h2>
+        {% if result.drug_b.mentions_drug_a %}
+            <p><strong>✓ This drug's label mentions {{ result.drug_a.name }}</strong></p>
+        {% else %}
+            <p>This drug's label does not mention {{ result.drug_a.name }}</p>
+        {% endif %}
+        
+        <details>
+            <summary>View Full Interaction Information</summary>
+            <div class="full-text">{{ result.drug_b.interactions }}</div>
+        </details>
+    </div>
+    
+    <div class="disclaimer">
+        ⚠️ <strong>Disclaimer:</strong> This tool is for informational purposes only. 
+        Always consult your doctor or pharmacist before combining medications.
+    </div>
+    
+    <a href="/">← Check Another Interaction</a>
+    
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drug Interaction Checker</title>
+    <link rel="stylesheet" href="static/style.css"
+</head>
+
+<body>
+    <h1>Drug Interaction Checker</h1>
+    
+    <form method="POST" action="/check">
+        <label for="drug_a">Drug A:</label>
+        <input type="text" id="drug_a" name="drug_a" placeholder="e.g., Lipitor" required>
+        
+        <label for="drug_b">Drug B:</label>
+        <input type="text" id="drug_b" name="drug_b" placeholder="e.g., warfarin" required>
+        
+        <button type="submit">Check Interactions</button>
+    </form>
+
+    <div id="loading" style = "display: none;">
+        <p>Checking Interactions...</p>
+    </div>
+    
+    <div id="results"></div>
+
+</body>
+</html>
